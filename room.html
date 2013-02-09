@@ -10,6 +10,8 @@
 	<div id="attacks" style="display:none;">0</div>
 	<div id="defends" style="display:none;">0</div>
 	<div id="startAttack" style="display:none;">Begin Attack</div>
+	<div id="defend" style="display:none;">Defend</div>
+	<div id="finishAttack" style="display:none;">Finished Attacking</div>
 	<div id="audios" style="display:none;">
 	<audio id="left" controls src="left.wav"></audio>
 	<audio id="center" controls src="center.wav"></audio>
@@ -71,9 +73,13 @@
 				if(data.val()==playerID) {
 					canAttack=true;
 					$("#startAttack").show();
+					$("#finishAttack").hide();
+					$("#defend").hide();
 				} else {
 					canAttack=false;
 					$("#startAttack").hide();
+					$("#finishAttack").hide();
+					$("#defend").show();
 				}
 			}
 		});
@@ -117,7 +123,12 @@
 			if(canAttack) {
 				$("#attacks").text(parseInt($("#attacks").text())+1);
 				if(parseInt($("#attacks").text())>=10) {
-					game.child("attacking").set(otherID);
+					$("#startAttack").show();
+					$("#finishAttack").show();
+					canAttack=false;
+					setTimeout(function(){
+						game.child("attacking").set(otherID);
+					},1000);
 				}
 			}
 		}
@@ -127,7 +138,7 @@
 				currentAttacks.push(which);
 				currentTimeouts.push(setTimeout(function(){
 					loseLife();
-				},5000));
+				},1000));
 				$("#defends").text(curr+1);
 			}
 		}
