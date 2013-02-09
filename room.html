@@ -13,7 +13,7 @@
 	<script type="text/javascript">
 		var gameID=getURLParameter(game);
 		console.log(gameID);
-		if(gameID==null) {
+		if(gameID=="null") {
 			gameID=Math.floor(Math.random()*1000000);
 			$("#roomNum").text(gameID);
 		}
