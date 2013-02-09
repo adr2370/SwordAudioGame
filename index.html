@@ -31,8 +31,7 @@
 			}
 		});
 		game.child(playerID).on('child_added', function (snapshot) {
-		    var message = snapshot.val();
-		console.log(message);
+		    var message = snapshot.val().move;
 			if(message=="l") {
 				l();
 			} else if(message=="c") {
