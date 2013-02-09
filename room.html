@@ -26,7 +26,7 @@
 		var center=document.getElementById("center");
 		var right=document.getElementById("right");
 		var game = new Firebase('https://swordgame.firebaseio.com/'+gameID+'/');
-		game.child(playerID).onDisconnect().set("offline");
+		game.child('players').child(playerID).onDisconnect().set("offline");
 		var func = function(isOnline) {
 			if (isOnline.val()) {
 				playerID=2;
@@ -45,6 +45,9 @@
 			}
 		}
 		game.child('players').on('value', func);
+		game.child('players').on('child_changed',function(data) {
+			console.log(data.name()+" "+data.val());
+		});
 		$('body').keydown(function(event) {
 			if(event.which==37) {
 				lPress();
