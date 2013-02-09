@@ -12,7 +12,6 @@
 	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
 	<script type="text/javascript">
 		var gameID=getURLParameter(game);
-		console.log(gameID);
 		if(gameID=="null") {
 			gameID=Math.floor(Math.random()*1000000);
 			$("#roomNum").text(gameID);
@@ -29,6 +28,11 @@
 				otherID=1;
 				game.child('players').off('value', func);
 				game.child('players').child(playerID).push({status: "online"});
+				game.child('players').on('child_added',function(data) {
+					if(data.name()==2) {
+						console.log("START GAME");
+					}
+				});
 			} else {
 				game.child('players').off('value', func);
 				game.child('players').child(playerID).push({status: "online"});
