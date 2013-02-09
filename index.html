@@ -10,15 +10,18 @@
 		var left=document.getElementById("left");
 		var center=document.getElementById("center");
 		var right=document.getElementById("right");
-		function playLeft() {
+		function l() {
 			left.play();
 		}
-		function playCenter() {
+		function c() {
 			center.play();
 		}
-		function playRight() {
+		function r() {
 			right.play();
 		}
+		$('body').keydown(function(event) {
+			console.log(event.which);
+		});
 	</script>
 </body>
 </html>
