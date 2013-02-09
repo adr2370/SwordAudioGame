@@ -54,10 +54,11 @@
 			$("#num").text(gameID);
 			$("#roomNum").show();
 		}
-		var text="";
+		var readNum=document.getElementById("readNum");
+		var text="Tell your opponent to join room number: ";
 		var digits=gameID.toString().split("");
 		for(var i=0;i<digits.length;i++) text+=digits[i]+" ";
-		document.getElementById("readNum").src="http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURIComponent(text)+"&tl=en&total=1&idx=0&prev=input";
+		readNum.src="http://tts-api.com/tts.mp3?q="+encodeURIComponent(text);
 		var playerID=1;
 		var otherID=2;
 		var gameStarted=false;
@@ -81,6 +82,7 @@
 				game.child('players').child(playerID).set("online");
 				$("#num").text(gameID);
 				$("#roomNum").show();
+				readNum.play();
 				game.child('players').on('child_added',function(data) {
 					if(data.name()==2) {
 						beginGame();
