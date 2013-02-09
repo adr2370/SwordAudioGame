@@ -2,76 +2,14 @@
 <head>
 </head>
 <body>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<div id="audios" style="display:none;">
-	<audio id="left" controls src="left.wav"></audio>
-	<audio id="center" controls src="center.wav"></audio>
-	<audio id="right" controls src="right.wav"></audio>
-	</div>
-	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
-	<script type="text/javascript">
-		var gameID=1;
-		var playerID=1;
-		var otherID=2;
-		var left=document.getElementById("left");
-		var center=document.getElementById("center");
-		var right=document.getElementById("right");
-		var game = new Firebase('https://browserwithfriends.firebaseio.com/'+gameID+'/');
-		var func = function(isOnline) {
-			if (isOnline.val()) {
-				playerID=2;
-				otherID=1;
-				game.child('players').off('value', func);
-				game.child('players').child(playerID).push({status: "online"});
-			} else {
-				game.child('players').off('value', func);
-				game.child('players').child(playerID).push({status: "online"});
-			}
-		}
-		game.child('players').on('value', func);
-		$('body').keydown(function(event) {
-			if(event.which==37) {
-				lPress();
-			} else if(event.which==38) {
-				cPress();
-			} else if(event.which==39){
-				rPress();
-			}
-		});
-		game.child(playerID).on('child_added', function (snapshot) {
-			var message = snapshot.val().move;
-			if(message=="l") {
-				l();
-			} else if(message=="c") {
-				c();
-			} else if(message=="r") {
-				r();
-			}
-		});
-		function lPress() {
-			l();
-			game.child(otherID).push({move: 'r'});
-		}
-		function cPress() {
-			c();
-			game.child(otherID).push({move: 'c'});
-		}
-		function rPress() {
-			r();
-			game.child(otherID).push({move: 'l'});
-		}
-		function l() {
-			left.currentTime=0;
-			left.play();
-		}
-		function c() {
-			center.currentTime=0;
-			center.play();
-		}
-		function r() {
-			right.currentTime=0;
-			right.play();
-		}
-	</script>
+<a href="room.html">Start Game</a>
+<br>
+<a href="#" onclick="goToRoom()">Join Game</a>
+Game ID: <input id="roomNum"/>
+<script type="text/javascript">
+function goToRoom() {
+	window.location="room.html?room="+roomNum.val();
+}
+</script>
 </body>
 </html>
