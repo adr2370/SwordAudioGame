@@ -46,7 +46,9 @@
 		}
 		game.child('players').on('value', func);
 		game.child('players').on('child_changed',function(data) {
-			console.log(data.name()+" "+data.val());
+			if(data.val()=="offline") {
+				window.location='index.html';
+			}
 		});
 		$('body').keydown(function(event) {
 			if(event.which==37) {
