@@ -5,7 +5,7 @@
 <body>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 	<div id="roomNum" style="display:none;">
-		Tell them to join room number: <span id="num"></span>
+		Tell your opponent to join room number: <span id="num"></span>
 	</div>
 	<div id="gameInfo" style="display:none;">
 		<div>Your Score:</div>
@@ -44,6 +44,7 @@
 	<audio id="defendAudio" controls src="defend.wav"></audio>
 	<audio id="wonAudio" controls src="won.wav"></audio>
 	<audio id="lostAudio" controls src="lost.wav"></audio>
+	<audio id="readNum" controls></audio>
 	</div>
 	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
 	<script type="text/javascript">
@@ -53,6 +54,10 @@
 			$("#num").text(gameID);
 			$("#roomNum").show();
 		}
+		var text="Tell your opponent to join room number: ";
+		var digits=gameID.toString().split("");
+		for(var i=0;i<digits.length;i++) text+=digits[i]+" ";
+		document.getElementById("readNum").src="http://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURIComponent(text)+"&tl=en&total=1&idx=0&textlen=23&prev=input";
 		var playerID=1;
 		var otherID=2;
 		var gameStarted=false;
