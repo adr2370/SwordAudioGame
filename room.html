@@ -78,14 +78,12 @@
 			}
 		});
 		$('body').keydown(function(event) {
-			if(canAttack) {
-				if(event.which==37) {
-					lPress();
-				} else if(event.which==38) {
-					cPress();
-				} else if(event.which==39){
-					rPress();
-				}
+			if(event.which==37) {
+				lPress();
+			} else if(event.which==38) {
+				cPress();
+			} else if(event.which==39){
+				rPress();
 			}
 		});
 		function beginGame() {
