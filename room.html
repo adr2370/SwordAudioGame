@@ -105,34 +105,40 @@
 		}
 		function lPress() {
 			if(!gameStarted) return;
+			if(!canAttack) return;
 			l();
 			attacked();
 			game.child(otherID).push({move: 'r'});
 		}
 		function cPress() {
 			if(!gameStarted) return;
+			if(!canAttack) return;
 			c();
 			attacked();
 			game.child(otherID).push({move: 'c'});
 		}
 		function rPress() {
 			if(!gameStarted) return;
+			if(!canAttack) return;
 			r();
 			attacked();
 			game.child(otherID).push({move: 'l'});
 		}
 		function lAttack() {
 			if(!gameStarted) return;
+			if(canAttack) return;
 			l();
 			beenAttacked();
 		}
 		function cAttack() {
 			if(!gameStarted) return;
+			if(canAttack) return;
 			c();
 			beenAttacked();
 		}
 		function rAttack() {
 			if(!gameStarted) return;
+			if(canAttack) return;
 			r();
 			beenAttacked();
 		}
