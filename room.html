@@ -7,21 +7,26 @@
 		Tell them to join room number: <span id="num"></span>
 	</div>
 	<div id="gameInfo">
-	<div>Your Score:</div>
-	<div id="life">100</div>
-	<div>Other Score:</div>
-	<div id="otherlife">100</div>
-	<div>Your Attack Count:</div>
-	<div id="attacks">0</div>
-	<div>Their Attack Count:</div>
-	<div id="defends">0</div>
-	<div>Stage:</div>
-	<div id="startAttack" style="display:none;">Begin Attack</div>
-	<div id="defend" style="display:none;">Defend</div>
-	<div id="finishAttack" style="display:none;">Finished Attacking</div>
-	<div>Instructions:</div>
-	<div>To attack, use left, right, or up keys</div>
-	<div>To defend, use left, right, or up keys to match what the attack was</div>
+		<div>Your Score:</div>
+		<div id="life">100</div>
+		<div>Other Score:</div>
+		<div id="otherlife">100</div>
+		<div>Your Attack Count:</div>
+		<div id="attacks">0</div>
+		<div>Their Attack Count:</div>
+		<div id="defends">0</div>
+		<div>Stage:</div>
+		<div id="startAttack" style="display:none;">Begin Attack</div>
+		<div id="defend" style="display:none;">Defend</div>
+		<div id="finishAttack" style="display:none;">Finished Attacking</div>
+		<div>Instructions:</div>
+		<div>To attack, use left, right, or up keys</div>
+		<div>To defend, use left, right, or up keys to match what the attack was</div>
+	</div>
+	<div id="afterGame" style="display:none;">
+		<div id="results"></div>
+		<div id="playAgain" onclick="beginGame()">Play Again</div>
+		<a href="index.html" id="goBack">Go Back</a>
 	</div>
 	<div id="audios" style="display:none;">
 	<audio id="left" controls src="left.wav"></audio>
@@ -78,6 +83,9 @@
 		game.child("scores").on('child_changed',function(data) {
 			if(data.name()==otherID) {
 				$("#otherlife").text(data.val());
+				if(parseInt($("#otherlife").text())<=0) {
+					wonGame();
+				}
 			}
 		});
 		game.on('child_changed',function(data) {
@@ -108,13 +116,28 @@
 				rPress();
 			}
 		});
+		function lostGame() {
+			$("#results").text("You lost :(");
+			endGame();
+		}
+		function wonGame() {
+			$("#results").text("YOU WON :D");
+			endGame();
+		}
+		function endGame() {
+			$("#gameInfo").hide();
+			$("#afterGame").show();
+		}
 		function beginGame() {
 			$("#roomNum").hide();
 			$("#gameInfo").show();
+			$("#afterGame").hide();
 			game.child("attacking").set(0);
 			game.child("attacking").set(1);
 			game.child("scores").child(1).set(100);
 			game.child("scores").child(2).set(100);
+			$("#life").text("100");
+			$("#otherlife").text("100");
 			gameStarted=true;
 			game.child(playerID).on('child_added', function (snapshot) {
 				var message = snapshot.val().move;
@@ -163,6 +186,9 @@
 		function loseLife() {
 			$("#life").text(parseInt($("#life").text())-1);
 			game.child("scores").child(playerID).set(parseInt($("#life").text()));
+			if(parseInt($("#life").text())<=0) {
+				lostGame();
+			}
 		}
 		function lPress() {
 			if(!gameStarted) return;
