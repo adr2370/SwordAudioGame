@@ -1,0 +1,44 @@
+<html><head></head><body>
+	<b>How to build an iPhone compatible HTML5 Audio player</b><br><br>
+<script type="text/javascript">
+    function loadPlayer() {
+        var audioPlayer = new Audio();
+        audioPlayer.controls="controls";
+        document.getElementById("player").appendChild(audioPlayer);
+        nextSong();
+    }
+    function nextSong() {
+        if(urls[next]!=undefined) {
+            var audioPlayer = document.getElementsByTagName('audio')[0];
+            if(audioPlayer!=undefined) {
+                audioPlayer.src="center.wav";
+                audioPlayer.load();
+                audioPlayer.play();
+            } else {
+                loadPlayer();
+            }
+        }
+    }
+    function playPause() {
+        var audioPlayer = document.getElementsByTagName('audio')[0];
+        if(audioPlayer!=undefined) {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+            } else {
+                audioPlayer.pause();
+            }
+        } else {
+            loadPlayer();
+        }
+    }
+</script>
+ 
+<div id="player"><audio preload="auto" controls="" src="center.wav"></audio></div>
+<a href="#" onclick="playPause()">Play / Pause!</a>
+
+<br><br>--------------------------
+
+<br><br>Right click and 'View Source' to see the code.
+
+<br><br>This ugly demo belongs to a tutorial on Mind Over Meta. <a href="http://mindovermeta.com/2010/08/how-to-build-an-iphone-compatible-html5-audio-player/">Back to Tutorial</a>
+</body></html>
