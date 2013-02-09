@@ -149,13 +149,17 @@
 			right.play();
 		}
 		function attacked() {
-			$("#attacks").text(parseInt($("#attacks").text())+1);
-			if(parseInt($("#attacks").text())>=10) {
-				game.child("attacking").set(otherID);
+			if(canAttack) {
+				$("#attacks").text(parseInt($("#attacks").text())+1);
+				if(parseInt($("#attacks").text())>=10) {
+					game.child("attacking").set(otherID);
+				}
 			}
 		}
 		function beenAttacked() {
-			$("#defends").text(parseInt($("#defends").text())+1);
+			if(!canAttack) {
+				$("#defends").text(parseInt($("#defends").text())+1);
+			}
 		}
 		function loseLife() {
 			$("#life").text(parseInt($("#life").text())-1);
