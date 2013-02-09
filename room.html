@@ -40,6 +40,10 @@
 	<audio id="left" controls src="left.wav"></audio>
 	<audio id="center" controls src="center.wav"></audio>
 	<audio id="right" controls src="right.wav"></audio>
+	<audio id="attackAudio" controls src="attack.wav"></audio>
+	<audio id="defendAudio" controls src="defend.wav"></audio>
+	<audio id="wonAudio" controls src="won.wav"></audio>
+	<audio id="lostAudio" controls src="lost.wav"></audio>
 	</div>
 	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
 	<script type="text/javascript">
@@ -103,11 +107,13 @@
 				$("#attacks").text("0");
 				$("#defends").text("0");
 				if(data.val()==playerID) {
+					document.getElementById("attackAudio").play();
 					canAttack=true;
 					$("#startAttack").show();
 					$("#finishAttack").hide();
 					$("#defend").hide();
 				} else {
+					document.getElementById("defendAudio").play();
 					canAttack=false;
 					$("#startAttack").hide();
 					$("#finishAttack").hide();
@@ -125,10 +131,12 @@
 			}
 		});
 		function lostGame() {
+			document.getElementById("lostAudio").play();
 			$("#results").text("You lost :(");
 			endGame();
 		}
 		function wonGame() {
+			document.getElementById("wonAudio").play();
 			$("#results").text("YOU WON :D");
 			endGame();
 		}
