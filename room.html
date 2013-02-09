@@ -26,16 +26,17 @@
 		var center=document.getElementById("center");
 		var right=document.getElementById("right");
 		var game = new Firebase('https://swordgame.firebaseio.com/'+gameID+'/');
+		game.child(playerID).onDisconnect().set("offline");
 		var func = function(isOnline) {
 			if (isOnline.val()) {
 				playerID=2;
 				otherID=1;
 				game.child('players').off('value', func);
-				game.child('players').child(playerID).push({status: "online"});
+				game.child('players').child(playerID).set("online");
 				beginGame();
 			} else {
 				game.child('players').off('value', func);
-				game.child('players').child(playerID).push({status: "online"});
+				game.child('players').child(playerID).set("online");
 				game.child('players').on('child_added',function(data) {
 					if(data.name()==2) {
 						beginGame();
