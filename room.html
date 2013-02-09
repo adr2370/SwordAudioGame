@@ -124,14 +124,17 @@
 		function lAttack() {
 			if(!gameStarted) return;
 			l();
+			beenAttacked();
 		}
 		function cAttack() {
 			if(!gameStarted) return;
 			c();
+			beenAttacked();
 		}
 		function rAttack() {
 			if(!gameStarted) return;
 			r();
+			beenAttacked();
 		}
 		function l() {
 			left.currentTime=0;
