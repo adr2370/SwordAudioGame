@@ -133,8 +133,10 @@
 				lPress();
 			} else if(event.which==38) {
 				cPress();
-			} else if(event.which==39){
+			} else if(event.which==39) {
 				rPress();
+			} else if(!gameStarted&&event.which=66) {
+				window.location="index.html";
 			}
 		});
 		function lostGame() {
@@ -148,6 +150,7 @@
 			endGame();
 		}
 		function endGame() {
+			gameStarted=false;
 			$("#gameInfo").hide();
 			$("#afterGame").show();
 		}
