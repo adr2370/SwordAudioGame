@@ -70,11 +70,11 @@
 			game.child(playerID).on('child_added', function (snapshot) {
 				var message = snapshot.val().move;
 				if(message=="l") {
-					l();
+					lAttack();
 				} else if(message=="c") {
-					c();
+					cAttack();
 				} else if(message=="r") {
-					r();
+					rAttack();
 				}
 			});
 		}
@@ -93,18 +93,27 @@
 			r();
 			game.child(otherID).push({move: 'l'});
 		}
-		function l() {
+		function lAttack() {
 			if(!gameStarted) return;
+			l();
+		}
+		function cAttack() {
+			if(!gameStarted) return;
+			c();
+		}
+		function rAttack() {
+			if(!gameStarted) return;
+			r();
+		}
+		function l() {
 			left.currentTime=0;
 			left.play();
 		}
 		function c() {
-			if(!gameStarted) return;
 			center.currentTime=0;
 			center.play();
 		}
 		function r() {
-			if(!gameStarted) return;
 			right.currentTime=0;
 			right.play();
 		}
