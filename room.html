@@ -86,22 +86,16 @@
 		function lPress() {
 			if(!gameStarted) return;
 			l();
-			canAttack=false;
-			setInterval(function(){canAttack=true;},1000);
 			game.child(otherID).push({move: 'r'});
 		}
 		function cPress() {
 			if(!gameStarted) return;
 			c();
-			canAttack=false;
-			setInterval(function(){canAttack=true;},1000);
 			game.child(otherID).push({move: 'c'});
 		}
 		function rPress() {
 			if(!gameStarted) return;
 			r();
-			canAttack=false;
-			setInterval(function(){canAttack=true;},1000);
 			game.child(otherID).push({move: 'l'});
 		}
 		function lAttack() {
