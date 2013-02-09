@@ -61,6 +61,7 @@
 		});
 		game.on('child_changed',function(data) {
 			if(data.name()=="attacking") {
+				$("#attacks").text("0");
 				if(data.val()==playerID) {
 					canAttack=true;
 					$("#startAttack").show();
@@ -85,6 +86,7 @@
 			$("#roomNum").hide();
 			$("#life").show();
 			$("#attacks").show();
+			game.child("attacking").set(0);
 			game.child("attacking").set(1);
 			gameStarted=true;
 			game.child(playerID).on('child_added', function (snapshot) {
@@ -143,7 +145,6 @@
 		function attacked() {
 			$("#attacks").text(parseInt($("#attacks").text())+1);
 			if(parseInt($("#attacks").text())>=10) {
-				$("#attacks").text("0");
 				game.child("attacking").set(otherID);
 			}
 		}
