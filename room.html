@@ -37,13 +37,21 @@
 		<a href="index.html" id="goBack">Go Back</a>
 	</div>
 	<div id="audios" >
+	<br>
 	<audio id="left" controls src="left.wav"></audio>
+	<br>
 	<audio id="center" controls src="center.wav"></audio>
+	<br>
 	<audio id="right" controls src="right.wav"></audio>
+	<br>
 	<audio id="attackAudio" controls src="attack.wav"></audio>
+	<br>
 	<audio id="defendAudio" controls src="defend.wav"></audio>
+	<br>
 	<audio id="wonAudio" controls src="won.wav"></audio>
+	<br>
 	<audio id="lostAudio" controls src="lost.wav"></audio>
+	<br>
 	<audio id="readNum" controls></audio>
 	</div>
 	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
@@ -59,6 +67,7 @@
 		var digits=gameID.toString().split("");
 		for(var i=0;i<digits.length;i++) text+=digits[i]+" ";
 		readNum.src="http://tts-api.com/tts.mp3?q="+encodeURIComponent(text);
+		readNum.load();
 		var playerID=1;
 		var otherID=2;
 		var gameStarted=false;
