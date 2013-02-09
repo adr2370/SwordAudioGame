@@ -107,14 +107,17 @@
 		}
 		function lAttack() {
 			if(!gameStarted) return;
+			if(!canAttack) return;
 			l();
 		}
 		function cAttack() {
 			if(!gameStarted) return;
+			if(!canAttack) return;
 			c();
 		}
 		function rAttack() {
 			if(!gameStarted) return;
+			if(!canAttack) return;
 			r();
 		}
 		function l() {
