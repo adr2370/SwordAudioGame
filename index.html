@@ -18,7 +18,6 @@
 		var right=document.getElementById("right");
 		var game = new Firebase('https://browserwithfriends.firebaseio.com/'+gameID+'/');
 		var func = function(isOnline) {
-			console.log(isOnline.val());
 			if (isOnline.val()) {
 				playerID=2;
 				otherID=1;
