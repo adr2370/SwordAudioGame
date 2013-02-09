@@ -64,6 +64,8 @@
 		});
 		game.on('child_changed',function(data) {
 			if(data.name()=="attacking") {
+				currentAttacks=[];
+				currentTimeouts=[];
 				$("#attacks").text("0");
 				$("#defends").text("0");
 				if(data.val()==playerID) {
@@ -105,26 +107,64 @@
 				}
 			});
 		}
+		function block(which) {
+			for(var i=0;i<currentAttacks.length;i++) {
+				if(currentAttacks[i]==which) {
+					clearTimeout(currentTimeout[i]);
+					return;
+				}
+			}
+		}
+		function attacked() {
+			if(canAttack) {
+				$("#attacks").text(parseInt($("#attacks").text())+1);
+				if(parseInt($("#attacks").text())>=10) {
+					game.child("attacking").set(otherID);
+				}
+			}
+		}
+		function beenAttacked(which) {
+			if(!canAttack) {
+				var curr=parseInt($("#defends").text());
+				currentAttacks.push(which);
+				currentTimeouts.push(setTimeout(function(){
+					loseLife();
+				},5000));
+				$("#defends").text(curr+1);
+			}
+		}
+		function loseLife() {
+			$("#life").text(parseInt($("#life").text())-1);
+		}
 		function lPress() {
 			if(!gameStarted) return;
-			if(!canAttack) return;
-			l();
-			attacked();
-			game.child(otherID).push({move: 'r'});
+			if(canAttack) {
+				l();
+				attacked();
+				game.child(otherID).push({move: 'r'});
+			} else {
+				block('l');
+			}
 		}
 		function cPress() {
 			if(!gameStarted) return;
-			if(!canAttack) return;
-			c();
-			attacked();
-			game.child(otherID).push({move: 'c'});
+			if(canAttack) {
+				c();
+				attacked();
+				game.child(otherID).push({move: 'c'});
+			} else {
+				block('c');
+			}
 		}
 		function rPress() {
 			if(!gameStarted) return;
-			if(!canAttack) return;
-			r();
-			attacked();
-			game.child(otherID).push({move: 'l'});
+			if(canAttack) {
+				r();
+				attacked();
+				game.child(otherID).push({move: 'l'});
+			} else {
+				block('r');
+			}
 		}
 		function lAttack() {
 			if(!gameStarted) return;
@@ -155,27 +195,6 @@
 		function r() {
 			right.currentTime=0;
 			right.play();
-		}
-		function attacked() {
-			if(canAttack) {
-				$("#attacks").text(parseInt($("#attacks").text())+1);
-				if(parseInt($("#attacks").text())>=10) {
-					game.child("attacking").set(otherID);
-				}
-			}
-		}
-		function beenAttacked(which) {
-			if(!canAttack) {
-				var curr=parseInt($("#defends").text());
-				currentAttacks.push(which);
-				currentTimeouts.push(setTimeout(function(){
-					loseLife();
-				},5000));
-				$("#defends").text(curr+1);
-			}
-		}
-		function loseLife() {
-			$("#life").text(parseInt($("#life").text())-1);
 		}
 		function getURLParameter(name) {
 		    return decodeURI(
