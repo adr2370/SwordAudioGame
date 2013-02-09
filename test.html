@@ -1,8 +1,5 @@
 <html><head></head><body>
 	<b>How to build an iPhone compatible HTML5 Audio player</b><br><br>
-
-	<div id="player"><audio preload="auto" controls="" src="center.wav"></audio></div>
-	<a href="#" onclick="playPause()">Play / Pause!</a>
 <script type="text/javascript">
     function loadPlayer() {
         var audioPlayer = new Audio();
@@ -43,6 +40,9 @@
                 loadPlayer();
             }
 </script>
+ 
+<div id="player"><audio preload="auto" controls="" src="center.wav"></audio></div>
+<a href="#" onclick="playPause()">Play / Pause!</a>
 
 <br><br>--------------------------
 
