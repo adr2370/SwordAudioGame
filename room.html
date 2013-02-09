@@ -167,10 +167,10 @@
 		function beenAttacked(which) {
 			if(!canAttack) {
 				var curr=parseInt($("#defends").text());
-				currentAttacks[]=which;
-				currentTimeouts[]=setTimeout(function(){
+				currentAttacks.push(which);
+				currentTimeouts.push(setTimeout(function(){
 					loseLife();
-				},5000);
+				},5000));
 				$("#defends").text(curr+1);
 			}
 		}
