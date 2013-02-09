@@ -108,7 +108,7 @@
 		function block(which) {
 			for(var i=0;i<currentAttacks.length;i++) {
 				if(currentAttacks[i]==which) {
-					clearTimeout(currentTimeout[i]);
+					clearTimeout(currentTimeouts[i]);
 					return;
 				}
 			}
