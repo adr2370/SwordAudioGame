@@ -21,6 +21,7 @@
 		}
 		var playerID=1;
 		var otherID=2;
+		var gameStarted=false;
 		var left=document.getElementById("left");
 		var center=document.getElementById("center");
 		var right=document.getElementById("right");
@@ -64,30 +65,37 @@
 		});
 		function beginGame() {
 			$("#roomNum").hide();
-			function lPress() {
-				l();
-				game.child(otherID).push({move: 'r'});
-			}
-			function cPress() {
-				c();
-				game.child(otherID).push({move: 'c'});
-			}
-			function rPress() {
-				r();
-				game.child(otherID).push({move: 'l'});
-			}
-			function l() {
-				left.currentTime=0;
-				left.play();
-			}
-			function c() {
-				center.currentTime=0;
-				center.play();
-			}
-			function r() {
-				right.currentTime=0;
-				right.play();
-			}
+			gameStarted=true;
+		}
+		function lPress() {
+			if(!gameStarted) return;
+			l();
+			game.child(otherID).push({move: 'r'});
+		}
+		function cPress() {
+			if(!gameStarted) return;
+			c();
+			game.child(otherID).push({move: 'c'});
+		}
+		function rPress() {
+			if(!gameStarted) return;
+			r();
+			game.child(otherID).push({move: 'l'});
+		}
+		function l() {
+			if(!gameStarted) return;
+			left.currentTime=0;
+			left.play();
+		}
+		function c() {
+			if(!gameStarted) return;
+			center.currentTime=0;
+			center.play();
+		}
+		function r() {
+			if(!gameStarted) return;
+			right.currentTime=0;
+			right.play();
 		}
 		function getURLParameter(name) {
 		    return decodeURI(
