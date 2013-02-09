@@ -143,7 +143,7 @@
 		function attacked() {
 			$("#attacks").text(parseInt($("#attacks").text())+1);
 			if(parseInt($("#attacks").text())>=10) {
-				parseInt($("#attacks").text("0");
+				$("#attacks").text("0");
 				game.child("attacking").set(otherID);
 			}
 		}
