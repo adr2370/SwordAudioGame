@@ -57,19 +57,13 @@
 				window.location='index.html';
 			}
 		});
-		$('body').keypress(function(event) {
+		$('body').keydown(function(event) {
 			if(canAttack) {
 				if(event.which==37) {
-					canAttack=false;
-					setInterval(function(){canAttack=true;},3000);
 					lPress();
 				} else if(event.which==38) {
-					canAttack=false;
-					setInterval(function(){canAttack=true;},3000);
 					cPress();
 				} else if(event.which==39){
-					canAttack=false;
-					setInterval(function(){canAttack=true;},3000);
 					rPress();
 				}
 			}
@@ -92,16 +86,22 @@
 		function lPress() {
 			if(!gameStarted) return;
 			l();
+			canAttack=false;
+			setInterval(function(){canAttack=true;},3000);
 			game.child(otherID).push({move: 'r'});
 		}
 		function cPress() {
 			if(!gameStarted) return;
 			c();
+			canAttack=false;
+			setInterval(function(){canAttack=true;},3000);
 			game.child(otherID).push({move: 'c'});
 		}
 		function rPress() {
 			if(!gameStarted) return;
 			r();
+			canAttack=false;
+			setInterval(function(){canAttack=true;},3000);
 			game.child(otherID).push({move: 'l'});
 		}
 		function lAttack() {
