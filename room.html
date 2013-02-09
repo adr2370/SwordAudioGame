@@ -6,6 +6,7 @@
 	<div id="roomNum" style="display:none;">
 		Tell them to join room number: <span id="num"></span>
 	</div>
+	<div id="life" style="display:none;">100</div>
 	<div id="audios" style="display:none;">
 	<audio id="left" controls src="left.wav"></audio>
 	<audio id="center" controls src="center.wav"></audio>
@@ -26,6 +27,7 @@
 		var center=document.getElementById("center");
 		var right=document.getElementById("right");
 		var game = new Firebase('https://swordgame.firebaseio.com/'+gameID+'/');
+		var canAttack=true;
 		game.child('players').child(playerID).onDisconnect().set("offline");
 		var func = function(isOnline) {
 			if (isOnline.val()) {
@@ -56,16 +58,19 @@
 			}
 		});
 		$('body').keydown(function(event) {
-			if(event.which==37) {
-				lPress();
-			} else if(event.which==38) {
-				cPress();
-			} else if(event.which==39){
-				rPress();
+			if(canAttack) {
+				if(event.which==37) {
+					lPress();
+				} else if(event.which==38) {
+					cPress();
+				} else if(event.which==39){
+					rPress();
+				}
 			}
 		});
 		function beginGame() {
 			$("#roomNum").hide();
+			$("#life").show();
 			gameStarted=true;
 			game.child(playerID).on('child_added', function (snapshot) {
 				var message = snapshot.val().move;
@@ -81,16 +86,22 @@
 		function lPress() {
 			if(!gameStarted) return;
 			l();
+			canAttack=false;
+			setInterval(function(){canAttack=true;},1000);
 			game.child(otherID).push({move: 'r'});
 		}
 		function cPress() {
 			if(!gameStarted) return;
 			c();
+			canAttack=false;
+			setInterval(function(){canAttack=true;},1000);
 			game.child(otherID).push({move: 'c'});
 		}
 		function rPress() {
 			if(!gameStarted) return;
 			r();
+			canAttack=false;
+			setInterval(function(){canAttack=true;},1000);
 			game.child(otherID).push({move: 'l'});
 		}
 		function lAttack() {
@@ -116,6 +127,9 @@
 		function r() {
 			right.currentTime=0;
 			right.play();
+		}
+		function loseLife() {
+			$("#life").text($("#life").text()-1);
 		}
 		function getURLParameter(name) {
 		    return decodeURI(
