@@ -3,7 +3,9 @@
 </head>
 <body>
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<div id="roomNum"></div>
+	<div id="roomNum" style="display:none;">
+		Tell them to join room number: <span id="num"></span>
+	</div>
 	<div id="audios" style="display:none;">
 	<audio id="left" controls src="left.wav"></audio>
 	<audio id="center" controls src="center.wav"></audio>
@@ -14,7 +16,8 @@
 		var gameID=getURLParameter("room");
 		if(gameID=="null") {
 			gameID=Math.floor(Math.random()*1000000);
-			$("#roomNum").text(gameID);
+			$("#num").text(gameID);
+			$("#roomNum").show();
 		}
 		var playerID=1;
 		var otherID=2;
@@ -28,13 +31,13 @@
 				otherID=1;
 				game.child('players').off('value', func);
 				game.child('players').child(playerID).push({status: "online"});
-				console.log("START GAME");
+				beginGame();
 			} else {
 				game.child('players').off('value', func);
 				game.child('players').child(playerID).push({status: "online"});
 				game.child('players').on('child_added',function(data) {
 					if(data.name()==2) {
-						console.log("START GAME");
+						beginGame();
 					}
 				});
 			}
@@ -59,29 +62,32 @@
 				r();
 			}
 		});
-		function lPress() {
-			l();
-			game.child(otherID).push({move: 'r'});
-		}
-		function cPress() {
-			c();
-			game.child(otherID).push({move: 'c'});
-		}
-		function rPress() {
-			r();
-			game.child(otherID).push({move: 'l'});
-		}
-		function l() {
-			left.currentTime=0;
-			left.play();
-		}
-		function c() {
-			center.currentTime=0;
-			center.play();
-		}
-		function r() {
-			right.currentTime=0;
-			right.play();
+		function beginGame() {
+			$("#roomNum").hide();
+			function lPress() {
+				l();
+				game.child(otherID).push({move: 'r'});
+			}
+			function cPress() {
+				c();
+				game.child(otherID).push({move: 'c'});
+			}
+			function rPress() {
+				r();
+				game.child(otherID).push({move: 'l'});
+			}
+			function l() {
+				left.currentTime=0;
+				left.play();
+			}
+			function c() {
+				center.currentTime=0;
+				center.play();
+			}
+			function r() {
+				right.currentTime=0;
+				right.play();
+			}
 		}
 		function getURLParameter(name) {
 		    return decodeURI(
