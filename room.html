@@ -59,19 +59,19 @@
 				rPress();
 			}
 		});
-		game.child(playerID).on('child_added', function (snapshot) {
-			var message = snapshot.val().move;
-			if(message=="l") {
-				l();
-			} else if(message=="c") {
-				c();
-			} else if(message=="r") {
-				r();
-			}
-		});
 		function beginGame() {
 			$("#roomNum").hide();
 			gameStarted=true;
+			game.child(playerID).on('child_added', function (snapshot) {
+				var message = snapshot.val().move;
+				if(message=="l") {
+					l();
+				} else if(message=="c") {
+					c();
+				} else if(message=="r") {
+					r();
+				}
+			});
 		}
 		function lPress() {
 			if(!gameStarted) return;
