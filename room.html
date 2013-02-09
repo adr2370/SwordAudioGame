@@ -58,20 +58,19 @@
 			}
 		});
 		$('body').keydown(function(event) {
-			console.log(canAttack);
 			if(canAttack) {
-				canAttack=false;
 				if(event.which==37) {
+					canAttack=false;
 					setInterval(function(){canAttack=true;},3000);
 					lPress();
 				} else if(event.which==38) {
+					canAttack=false;
 					setInterval(function(){canAttack=true;},3000);
 					cPress();
 				} else if(event.which==39){
+					canAttack=false;
 					setInterval(function(){canAttack=true;},3000);
 					rPress();
-				} else {
-					canAttack=true;
 				}
 			}
 		});
