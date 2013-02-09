@@ -31,6 +31,8 @@
 		var right=document.getElementById("right");
 		var game = new Firebase('https://swordgame.firebaseio.com/'+gameID+'/');
 		var canAttack=true;
+		var currentAttacks=[];
+		var currentTimeouts=[];
 		game.child('players').child(playerID).onDisconnect().set("offline");
 		var func = function(isOnline) {
 			if (isOnline.val()) {
@@ -128,19 +130,19 @@
 			if(!gameStarted) return;
 			if(canAttack) return;
 			l();
-			beenAttacked();
+			beenAttacked('l');
 		}
 		function cAttack() {
 			if(!gameStarted) return;
 			if(canAttack) return;
 			c();
-			beenAttacked();
+			beenAttacked('c');
 		}
 		function rAttack() {
 			if(!gameStarted) return;
 			if(canAttack) return;
 			r();
-			beenAttacked();
+			beenAttacked('r');
 		}
 		function l() {
 			left.currentTime=0;
@@ -162,9 +164,14 @@
 				}
 			}
 		}
-		function beenAttacked() {
+		function beenAttacked(which) {
 			if(!canAttack) {
-				$("#defends").text(parseInt($("#defends").text())+1);
+				var curr=parseInt($("#defends").text());
+				currentAttacks[]=which;
+				currentTimeouts[]=setTimeout(function(){
+					loseLife();
+				},5000);
+				$("#defends").text(curr+1);
 			}
 		}
 		function loseLife() {
