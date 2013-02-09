@@ -20,6 +20,13 @@
 			right.play();
 		}
 		$('body').keydown(function(event) {
+			if(event.which=37) {
+				l();
+			} else if(event.which=38) {
+				c();
+			} else if(event.which=39){
+				r();
+			}
 			console.log(event.which);
 		});
 	</script>
