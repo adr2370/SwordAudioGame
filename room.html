@@ -128,10 +128,10 @@
 			right.play();
 		}
 		function attacked() {
-			$("#attacks").text($("#attacks").text()+1);
+			$("#attacks").text(parseInt($("#attacks").text())+1);
 		}
 		function loseLife() {
-			$("#life").text($("#life").text()-1);
+			$("#life").text(parseInt($("#life").text())-1);
 		}
 		function getURLParameter(name) {
 		    return decodeURI(
