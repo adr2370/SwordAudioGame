@@ -57,7 +57,7 @@
 				window.location='index.html';
 			}
 		});
-		$('body').keypress(function(event) {
+		$('body').keydown(function(event) {
 			if(canAttack) {
 				if(event.which==37) {
 					canAttack=false;
