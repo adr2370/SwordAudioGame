@@ -11,7 +11,7 @@
 	</div>
 	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
 	<script type="text/javascript">
-		var gameID=getURLParameter(game);
+		var gameID=getURLParameter("room");
 		if(gameID=="null") {
 			gameID=Math.floor(Math.random()*1000000);
 			$("#roomNum").text(gameID);

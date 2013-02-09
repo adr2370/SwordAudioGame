@@ -8,7 +8,7 @@
 Game ID: <input id="roomNum"/>
 <script type="text/javascript">
 function goToRoom() {
-	window.location="room.html?room="+roomNum.val();
+	window.location="room.html?room="+document.getElementById("roomNum").value;
 }
 </script>
 </body>
