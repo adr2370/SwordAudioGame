@@ -7,6 +7,7 @@
 		Tell them to join room number: <span id="num"></span>
 	</div>
 	<div id="life" style="display:none;">100</div>
+	<div id="attacks" style="display:none;">0</div>
 	<div id="audios" style="display:none;">
 	<audio id="left" controls src="left.wav"></audio>
 	<audio id="center" controls src="center.wav"></audio>
@@ -71,6 +72,7 @@
 		function beginGame() {
 			$("#roomNum").hide();
 			$("#life").show();
+			$("#attacks").show();
 			gameStarted=true;
 			game.child(playerID).on('child_added', function (snapshot) {
 				var message = snapshot.val().move;
@@ -86,16 +88,19 @@
 		function lPress() {
 			if(!gameStarted) return;
 			l();
+			attacked();
 			game.child(otherID).push({move: 'r'});
 		}
 		function cPress() {
 			if(!gameStarted) return;
 			c();
+			attacked();
 			game.child(otherID).push({move: 'c'});
 		}
 		function rPress() {
 			if(!gameStarted) return;
 			r();
+			attacked();
 			game.child(otherID).push({move: 'l'});
 		}
 		function lAttack() {
@@ -121,6 +126,9 @@
 		function r() {
 			right.currentTime=0;
 			right.play();
+		}
+		function attacked() {
+			$("#attacks").text($("#attacks").text()+1);
 		}
 		function loseLife() {
 			$("#life").text($("#life").text()-1);
