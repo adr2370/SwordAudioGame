@@ -37,6 +37,8 @@
 			} else {
 				game.child('players').off('value', func);
 				game.child('players').child(playerID).set("online");
+				$("#num").text(gameID);
+				$("#roomNum").show();
 				game.child('players').on('child_added',function(data) {
 					if(data.name()==2) {
 						beginGame();
