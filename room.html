@@ -8,6 +8,7 @@
 	</div>
 	<div id="life" style="display:none;">100</div>
 	<div id="attacks" style="display:none;">0</div>
+	<div id="startAttack" style="display:none;">Begin Attack</div>
 	<div id="audios" style="display:none;">
 	<audio id="left" controls src="left.wav"></audio>
 	<audio id="center" controls src="center.wav"></audio>
@@ -58,6 +59,17 @@
 				window.location='index.html';
 			}
 		});
+		game.on('child_changed',function(data) {
+			if(data.name()=="attacking") {
+				if(data.val()==playerID) {
+					canAttack=true;
+					$("#startAttack").show();
+				} else {
+					canAttack=false;
+					$("#startAttack").hide();
+				}
+			}
+		});
 		$('body').keydown(function(event) {
 			if(canAttack) {
 				if(event.which==37) {
@@ -73,6 +85,7 @@
 			$("#roomNum").hide();
 			$("#life").show();
 			$("#attacks").show();
+			game.child("attacking").set(1);
 			gameStarted=true;
 			game.child(playerID).on('child_added', function (snapshot) {
 				var message = snapshot.val().move;
@@ -129,6 +142,10 @@
 		}
 		function attacked() {
 			$("#attacks").text(parseInt($("#attacks").text())+1);
+			if(parseInt($("#attacks").text())>=10) {
+				parseInt($("#attacks").text("0");
+				game.child("attacking").set(otherID);
+			}
 		}
 		function loseLife() {
 			$("#life").text(parseInt($("#life").text())-1);
