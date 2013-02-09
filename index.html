@@ -11,12 +11,15 @@
 		var center=document.getElementById("center");
 		var right=document.getElementById("right");
 		function l() {
+			left.currentTime=0;
 			left.play();
 		}
 		function c() {
+			center.currentTime=0;
 			center.play();
 		}
 		function r() {
+			right.currentTime=0;
 			right.play();
 		}
 		$('body').keydown(function(event) {
