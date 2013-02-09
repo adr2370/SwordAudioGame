@@ -32,7 +32,13 @@
         }
     }	
             var audioPlayer = document.getElementsByTagName('audio')[0];
-		audioPlayer.play();
+			if(audioPlayer!=undefined) {
+                audioPlayer.src="center.wav";
+                audioPlayer.load();
+                audioPlayer.play();
+            } else {
+                loadPlayer();
+            }
 </script>
  
 <div id="player"><audio preload="auto" controls="" src="center.wav"></audio></div>
