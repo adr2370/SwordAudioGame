@@ -8,10 +8,46 @@
 	<audio id="center" controls src="center.wav"></audio>
 	<audio id="right" controls src="right.wav"></audio>
 	</div>
+	<script type="text/javascript" src="https://cdn.firebase.com/v0/firebase.js"></script>
 	<script type="text/javascript">
+		var gameID=1;
+		var playerID=1;
+		var otherID=2;
 		var left=document.getElementById("left");
 		var center=document.getElementById("center");
 		var right=document.getElementById("right");
+		var game = new Firebase('https://browserwithfriends.firebaseio.com/'+gameID+'/');
+		$('body').keydown(function(event) {
+			if(event.which==37) {
+				lPress();
+			} else if(event.which==38) {
+				cPress();
+			} else if(event.which==39){
+				rPress();
+			}
+		});
+		game.child(playerID).on('child_added', function (snapshot) {
+		    var message = snapshot.val();
+			if(message=="l") {
+				l();
+			} else if(message=="c") {
+				c();
+			} else if(message=="r") {
+				r();
+			}
+		  });
+		function lPress() {
+			l();
+			game.child(otherID).push({move: 'r'});
+		}
+		function cPress() {
+			c();
+			game.child(otherID).push({move: 'c'});
+		}
+		function rPress() {
+			r();
+			game.child(otherID).push({move: 'l'});
+		}
 		function l() {
 			left.currentTime=0;
 			left.play();
@@ -24,15 +60,6 @@
 			right.currentTime=0;
 			right.play();
 		}
-		$('body').keydown(function(event) {
-			if(event.which==37) {
-				l();
-			} else if(event.which==38) {
-				c();
-			} else if(event.which==39){
-				r();
-			}
-		});
 	</script>
 </body>
 </html>
