@@ -13,6 +13,10 @@
 		var gameID=1;
 		var playerID=1;
 		var otherID=2;
+		if(Math.random<0.5) {
+			playerID=2;
+			otherID=1;
+		}
 		var left=document.getElementById("left");
 		var center=document.getElementById("center");
 		var right=document.getElementById("right");
@@ -28,6 +32,7 @@
 		});
 		game.child(playerID).on('child_added', function (snapshot) {
 		    var message = snapshot.val();
+		console.log(message);
 			if(message=="l") {
 				l();
 			} else if(message=="c") {
