@@ -124,7 +124,7 @@
 			if(canAttack) {
 				$("#attacks").text(parseInt($("#attacks").text())+1);
 				if(parseInt($("#attacks").text())>=10) {
-					$("#startAttack").show();
+					$("#startAttack").hide();
 					$("#finishAttack").show();
 					canAttack=false;
 					setTimeout(function(){
